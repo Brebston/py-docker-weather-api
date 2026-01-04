@@ -6,10 +6,16 @@ import os
 load_dotenv()
 API_KEY=os.getenv("API_KEY")
 
+BASE_URL = "http://api.weatherapi.com/v1/current.json"
+CITY = "Paris"
+
 
 def get_weather() -> None:
-    url = f"http://api.weatherapi.com/v1/current.json?key={API_KEY}&q=Paris"
-    response = requests.get(url)
+    params = {
+        "key": API_KEY,
+        "q": CITY,
+    }
+    response = requests.get(BASE_URL, params=params)
     data = response.json()
     location = data.get("location", {})
     city = location.get("name")
